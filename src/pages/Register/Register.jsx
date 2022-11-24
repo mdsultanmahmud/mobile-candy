@@ -84,7 +84,7 @@ const Register = () => {
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-neutral-content">
                 <div className="max-w-md">
-                    <form onSubmit={handleRegister}>
+                    <form className='w-[300px]' onSubmit={handleRegister}>
                         <h1 className='text-center mb-4 font-semibold text-xl'>Create Account!</h1>
                         <div>
                             <label className='text-sm font-bold text-green-500' htmlFor="name">Your Name</label>

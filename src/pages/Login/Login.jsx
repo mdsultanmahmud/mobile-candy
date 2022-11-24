@@ -26,8 +26,8 @@ const Login = () => {
         <div className="hero min-h-screen" style={{ backgroundImage: `url("${loginPic}")`, backgroundAttachment:'fixed' }}>
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content">
-            <div className="max-w-md">
-                <form onSubmit={handleLogin}>
+            <div className="w-full">
+                <form className='w-[300px]' onSubmit={handleLogin}>
                     <h1 className='text-center mb-4 font-semibold text-xl text-red-500'>Please Sign In!</h1>
                     <div>
                         <label className='text-sm font-bold text-green-500' htmlFor="email">Your Email</label>
