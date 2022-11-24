@@ -20,7 +20,7 @@ const Register = () => {
         console.log(user)
     }
     return (
-        <div className="hero min-h-screen" style={{ backgroundImage: `url("${register}")` }}>
+        <div className="hero min-h-screen" style={{ backgroundImage: `url("${register}")`, backgroundAttachment:'fixed' }}>
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-neutral-content">
                 <div className="max-w-md">
@@ -29,19 +29,19 @@ const Register = () => {
                         <div>
                             <label className='text-sm font-bold text-green-500' htmlFor="name">Your Name</label>
                             <br />
-                            <input name='name' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full max-w-xs' type="text" placeholder='Name' id='name' />
+                            <input name='name' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400  w-full max-w-xs' type="text" placeholder='Name' id='name' />
                         </div>
                         <div>
                             <label className='text-sm font-bold text-green-500' htmlFor="email">Your Email</label>
                             <br />
-                            <input name='email' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full max-w-xs' type="email" placeholder='Email' id='email' />
+                            <input name='email' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400  w-full max-w-xs' type="email" placeholder='Email' id='email' />
                         </div>
                         <div>
                             <label className='text-sm font-bold text-green-500' htmlFor="password"> Password</label>
                             <br />
-                            <input name='password' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full max-w-xs' type="password" placeholder='Password' id='password' />
+                            <input name='password' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400  w-full max-w-xs' type="password" placeholder='Password' id='password' />
                         </div>
-                        <select name='role' required className="select select-accent bg-transparent w-full max-w-xs my-3 focus:outline-none">
+                        <select name='role' required className="select select-accent bg-transparent  w-full max-w-xs my-3 focus:outline-none">
                             <option className='text-green-500 font-bold text-sm'>Buyer</option>
                             <option className='text-green-500 font-bold text-sm'>Seller</option>
                         </select>
