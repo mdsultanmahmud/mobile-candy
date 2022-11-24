@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
+import { AuthContext } from '../../context/AuthProvider';
+import toast from 'react-hot-toast'
 const Navbar = () => {
+    const {user, Logout} = useContext(AuthContext)
+    const userLogoutHandling = () =>{
+        Logout()
+        .then(data =>{
+            toast.success('Logout Successfully')
+        })
+        .catch(error =>{
+            console.log(error)
+            toast.error(error.message)
+        })
+    }
     const menuList = <>
         <li><Link className='font-semibold text-green-600' to={'/'}>Home</Link></li>
         <li><Link className='font-semibold text-green-600' to={'/blog'}>Blog</Link></li>
-        <li><Link className='font-semibold text-green-600' to={'/dashboard'}>Dashboard</Link></li>
-        <li><Link className='font-semibold text-green-600' to={'/login'}>Login</Link></li>
+        {
+            user?.email &&
+            <li><Link className='font-semibold text-green-600' to={'/dashboard'}>Dashboard</Link></li>
+        }
+        {
+            !user?.email &&
+            <li><Link className='font-semibold text-green-600' to={'/login'}>Login</Link></li>
+        }
         <li><Link className='font-semibold text-green-600' to={'/register'}>Register</Link></li>
     </>
     return (
@@ -27,9 +45,13 @@ const Navbar = () => {
                     {menuList}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn btn-outline btn-success">Logout</a>
+            {
+                user?.email && 
+                <div className="navbar-end">
+                <span className='text-xs mr-1 font-semibold'>{user?.displayName}</span>
+                <button onClick={userLogoutHandling} className="btn btn-outline btn-success">Logout</button>
             </div>
+            }
         </div>
     );
 };

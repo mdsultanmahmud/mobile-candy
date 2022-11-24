@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import loginPic from '../../assets/login.jpg'
+import { AuthContext } from '../../context/AuthProvider';
+import toast from 'react-hot-toast'
 const Login = () => {
+    const {LoginUser} = useContext(AuthContext)
     const handleLogin = event =>{
         event.preventDefault()
         const form = event.target 
         const email = form.email.value 
-        const password = form.password.value 
-        console.log(email, password)
+        const password = form.password.value
+        LoginUser(email, password)
+        .then(data =>{
+            const loggedUser = data.user 
+            if(loggedUser.uid){
+                toast.success('Login Successfully!')
+                form.reset()
+            }
+        })
+        .catch(error =>{
+            toast.success(error.message)
+            console.log(error)
+        })
     }
     return (
         <div className="hero min-h-screen" style={{ backgroundImage: `url("${loginPic}")`, backgroundAttachment:'fixed' }}>
@@ -14,7 +28,7 @@ const Login = () => {
         <div className="hero-content text-neutral-content">
             <div className="max-w-md">
                 <form onSubmit={handleLogin}>
-                    <h1 className='text-center mb-4 font-semibold text-xl text-red-500'>Please Login!</h1>
+                    <h1 className='text-center mb-4 font-semibold text-xl text-red-500'>Please Sign In!</h1>
                     <div>
                         <label className='text-sm font-bold text-green-500' htmlFor="email">Your Email</label>
                         <br />
@@ -25,7 +39,7 @@ const Login = () => {
                         <br />
                         <input name='password' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full' type="password" placeholder='Password' id='password' />
                     </div>
-                    <button type='submit' className="btn btn-outline btn-success w-full my-4">Login</button>
+                    <button type='submit' className="btn btn-outline btn-success w-full my-4">Sign In</button>
                 </form>
             </div>
         </div>
