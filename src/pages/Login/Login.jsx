@@ -18,14 +18,14 @@ const Login = () => {
                     <div>
                         <label className='text-sm font-bold text-green-500' htmlFor="email">Your Email</label>
                         <br />
-                        <input name='email' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full max-w-xs' type="email" placeholder='Email' id='email' />
+                        <input name='email' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full' type="email" placeholder='Email' id='email' />
                     </div>
                     <div>
                         <label className='text-sm font-bold text-green-500' htmlFor="password"> Password</label>
                         <br />
-                        <input name='password' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full max-w-xs' type="password" placeholder='Password' id='password' />
+                        <input name='password' required className='bg-transparent border-b-2 border-green-500 outline-none focus:border-b-2 mt-2 text-red-400 w-full' type="password" placeholder='Password' id='password' />
                     </div>
-                    <button type='submit' className="btn btn-outline btn-success w-full max-w-xs my-4">Login</button>
+                    <button type='submit' className="btn btn-outline btn-success w-full my-4">Login</button>
                 </form>
             </div>
         </div>

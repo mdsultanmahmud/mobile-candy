@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import register from '../../assets/register.jpg'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
-    const { user } = useContext(AuthContext)
+    const { user, userRegister, userUpdated} = useContext(AuthContext)
+    const navigate = useNavigate()
     const handleRegister = event =>{
         event.preventDefault()
         const form = event.target 
@@ -10,14 +13,54 @@ const Register = () => {
         const email = form.email.value 
         const password = form.password.value 
         const role = form.role.value 
-        const user = {
+        const storedUser = {
             name,
             email,
-            role,
-            password
+            role
         }
+        const profile = {
+            displayName: name  
+        }
+        userRegister(email, password)
+        .then(data =>{
+            const user = data.user 
+            if(user.uid){
+                userUpdated(profile)
+                .then(data =>{
+                    storedUserData(storedUser)
+                    console.log(user)
+                    form.reset()
+                })
+                .catch(err =>{
+                    toast.error(err.message)
+                    console.log(err)
+                })
+            }
+        })
+        .catch(error => {
+            toast.error(err.message)
+            console.log(error)
+        })
 
-        console.log(user)
+    }
+
+    // stored data into server 
+    const storedUserData = user =>{
+        fetch('http://localhost:5000/users', {
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            if(data.acknowledged){
+                toast.success('account created successfully!')
+                navigate('/')
+            }
+        })
     }
     return (
         <div className="hero min-h-screen" style={{ backgroundImage: `url("${register}")`, backgroundAttachment:'fixed' }}>
