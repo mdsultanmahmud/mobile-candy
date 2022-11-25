@@ -2,7 +2,6 @@ import React from 'react';
 
 const SingleAdvProd = ({advprod}) => {
     const {productsName, image,availibility, resalePrice, sellerName} = advprod
-    console.log(advprod)
     return (
         <div className="card bg-base-100 shadow-xl">
             <p className='text-gray-400 font-bold text-sm my-2'>Add</p>
