@@ -1,13 +1,7 @@
-import React from 'react';
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
-} from '@tanstack/react-query'
+import React, { useState } from 'react';
+import {useQuery} from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 const MyProducts = () => {
-
     const { data: myPorducts = [], isLoading } = useQuery({
         queryKey: ['email'],
         queryFn: async () => {
@@ -17,7 +11,21 @@ const MyProducts = () => {
         }
     })
 
-    console.log(myPorducts)
+    const handleAdvertisement = (prod) =>{
+        fetch(`http://localhost:5000/productsAdvertised`, {
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(prod)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            if(data.acknowledged){
+                toast.success('Products succeessfully advertised!')
+            }
+        })
+    }
     return (
         <div>
             {
@@ -42,11 +50,11 @@ const MyProducts = () => {
                         </thead>
                         <tbody>
                             {
-                                myPorducts.map(myPrd => <tr>
+                                myPorducts.map(myPrd => <tr key={myPrd._id}>
                                     <td className='text-sm font-bold'>{myPrd.productsName}</td>
                                     <td>${myPrd.resalePrice}</td>
-                                    <td><button className='btn btn-secondary btn-outline btn-xs'>Available</button></td>
-                                    <td><button className='btn btn-secondary btn-outline btn-xs'>Advertise</button></td>
+                                    <td><button className='btn btn-secondary btn-outline btn-xs'>{myPrd.availibility ? 'Available' : 'Sold'} </button></td>
+                                    <td><button onClick={()=> handleAdvertisement(myPrd)} className='btn btn-secondary btn-outline btn-xs' disabled={!myPrd.availibility}>Add</button></td>
                                     <td><button className='btn btn-secondary btn-outline btn-xs'>Delete</button></td>
                                 </tr>)
                             }
