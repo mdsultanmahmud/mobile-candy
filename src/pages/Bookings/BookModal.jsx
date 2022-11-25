@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast'
 const BookModal = ({ bookedProduct }) => {
     const { user } = useContext(AuthContext)
-    const { productsName, resalePrice, _id } = bookedProduct
+    const { productsName, resalePrice, _id, image } = bookedProduct
     const hangleBooking = event => {
         event.preventDefault()
         const today = new Date()
@@ -17,7 +17,8 @@ const BookModal = ({ bookedProduct }) => {
             date: today.toLocaleDateString(),
             phone: form.phone.value,
             metLocation: form.metLocation.value,
-            productId: _id
+            productId: _id,
+            image
         }
         fetch('http://localhost:5000/booking', {
             method:'post', 
