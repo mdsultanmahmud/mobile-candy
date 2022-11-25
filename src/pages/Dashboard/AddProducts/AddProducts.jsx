@@ -78,7 +78,7 @@ const AddProducts = () => {
                     <option value="samsung">Samsung</option>
                     <option value="huawei">Huawei</option>
                 </select>
-                <textarea className="textarea textarea-success w-full" placeholder="Products Description"></textarea>
+                <textarea {...register('description')} className="textarea textarea-success w-full" placeholder="Products Description"></textarea>
                 <br />
                 <button type='submit' className="btn btn-outline btn-accent">Add Products</button>
             </form>
