@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
     const Logout = () =>{
         return signOut(auth)
     }
-    // find logged user 
+    // find logged user  
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, currentUser =>{
             if(currentUser){

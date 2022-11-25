@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import BookModal from '../Bookings/BookModal';
+import { AuthContext } from '../../context/AuthProvider';
+import { Link } from 'react-router-dom';
 const SingleProduct = ({ prodcut }) => {
+    const [bookedPro, setBookedPro] = useState({})
+    const {user} = useContext(AuthContext)
     const { productsName, resalePrice, sellerEmail, sellerLocation, sellerName, usedTime,
         postTime, postDate, phone, originalPrice, image, condition } = prodcut
     return (
@@ -21,7 +26,7 @@ const SingleProduct = ({ prodcut }) => {
                     </div>
                     <div>
                         <h4 className='text-lg font-semibold text-orange-700'>Seller Information</h4>
-                        <p><strong className='font-bold text-gray-500'>Seller: </strong>{sellerName} 
+                        <p><strong className='font-bold text-gray-500'>Seller: </strong>{sellerName}
                             {/* {
                              <span><FontAwesomeIcon className='text-green-600' icon={faCircleCheck}></FontAwesomeIcon></span>
                             } */}
@@ -33,8 +38,18 @@ const SingleProduct = ({ prodcut }) => {
                 </div>
                 <p className='text-sm text-semibold text-gray-400'>{prodcut?.description}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-success font-bold btn-outline">Book Now</button>
+                    {
+                        user.email ? 
+                        <label onClick={() => setBookedPro(prodcut)} htmlFor="book-product" className="btn btn-success font-bold btn-outline" >Book Now</label >
+                        :
+                        <Link to={'/login'} className='text-red-500 text-sm font-semibold'>Please Login to Book</Link>
+                    }
                 </div>
+            </div>
+            <div>
+                {
+                    bookedPro.productsName && <BookModal key={prodcut._id} bookedProduct = {bookedPro}></BookModal>
+                }
             </div>
         </div>
     );
