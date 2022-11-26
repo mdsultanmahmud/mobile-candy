@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/AuthProvider';
+import { Link } from 'react-router-dom';
 const Myorder = () => {
     const { user,Logout } = useContext(AuthContext)
     const [bookings, setBookings] = useState([])
@@ -53,7 +54,9 @@ const Myorder = () => {
                                     <td>
                                         ${book.price}
                                     </td>
-                                    <td><button className='btn btn-outline btn-sm btn-success'>{book?.status ? 'paid' : 'pay'}</button></td>
+                                    <td>
+                                        <Link to={`/dashboard/payment/${book._id}`}><button className='btn btn-outline btn-sm btn-success'>{book?.status ? 'paid' : 'pay'}</button></Link>
+                                    </td>
                                 </tr>)
                             }
                         </tbody>

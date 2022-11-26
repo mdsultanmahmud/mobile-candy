@@ -8,13 +8,12 @@ import useRole from '../Hooks/useRole';
 const SingleProduct = ({ prodcut }) => {
     const [bookedPro, setBookedPro] = useState({})
     const { user } = useContext(AuthContext)
-    const [dbUser] = useRole(user?.email)
-    console.log(dbUser)
     const { productsName, resalePrice, sellerEmail, sellerLocation, sellerName, usedTime,
         postTime, postDate, phone, originalPrice, image, condition } = prodcut
+    const [dbUser] = useRole(sellerEmail)
     return (
         <div className="card bg-base-100 shadow-xl">
-            <figure><img className='h-[300px] w-full' src={image} alt="Shoes" /></figure>
+            <figure><img className='h-[300px] w-full md:w-3/4 md:rounded' src={image} alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title text-2xl font-bold text-gray-500 uppercase">{productsName}</h2>
                 <div className='grid gap-3 grid-cols-1 md:grid-cols-2 text-sm font-bold'>
