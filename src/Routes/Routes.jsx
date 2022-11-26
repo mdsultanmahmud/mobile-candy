@@ -11,6 +11,7 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import Products from "../pages/Products/Products";
 import Register from "../pages/Register/Register";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -36,13 +37,13 @@ const router = createBrowserRouter([
             {
                 path:'/categories/:id',
                 loader: ({params}) => fetch(`http://localhost:5000/categories/${params.id}`),
-                element:<Products></Products>
+                element:<PrivateRoutes><Products></Products></PrivateRoutes>
             }
         ]
     },
     {
         path:'/dashboard',
-        element:<Dashboard></Dashboard>,
+        element:<PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
         children:[
             {
                 path:'/dashboard',

@@ -8,9 +8,11 @@ export const AuthContext = createContext()
 const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({})
+    const [loading, setLoading] = useState(true)
     const provider = new GoogleAuthProvider
     // user create with email and password
     const userRegister = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
@@ -20,15 +22,18 @@ const AuthProvider = ({ children }) => {
     }
     // create account with goggle 
     const googleLogin = () => {
+        setLoading(true)
         return signInWithPopup(auth, provider)
     }
 
     //login with email and password
     const LoginUser = (email, password) =>{
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
     //logout the user
     const Logout = () =>{
+        setLoading(true)
         return signOut(auth)
     }
     // find logged user  
@@ -40,12 +45,13 @@ const AuthProvider = ({ children }) => {
             }else{
                 setUser({})
             }
+            setLoading(false)
         })
 
         return ()=> unsubscribe()
     } ,[])
 
-    const AuthInfo = { user, userRegister, userUpdated,googleLogin,
+    const AuthInfo = { user,loading, userRegister, userUpdated,googleLogin,
         LoginUser,Logout }
     return (
         <AuthContext.Provider value={AuthInfo}>

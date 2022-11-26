@@ -10,7 +10,12 @@ const Myorder = () => {
     }, [user?.email])
     return (
         <div className='my-8'>
-            <h1 className='text-center text-2xl text-red-400 font-semibold my-4'>Your All Orders</h1>
+            {
+                bookings.length > 0  ?
+                    <h1 className='text-center text-2xl text-red-400 font-semibold my-4'>Your All Orders</h1>
+                    :
+                    <h1 className='text-center text-2xl text-red-400 font-semibold my-4'>No products addeded.</h1>
+            }
             {
                 bookings.length > 0 &&
                 <div className="overflow-x-auto w-full">
@@ -25,7 +30,7 @@ const Myorder = () => {
                         </thead>
                         <tbody>
                             {
-                                bookings.map(book =><tr key={book._id}>
+                                bookings.map(book => <tr key={book._id}>
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
@@ -40,9 +45,9 @@ const Myorder = () => {
                                         </div>
                                     </td>
                                     <td>
-                                       ${book.price}
+                                        ${book.price}
                                     </td>
-                                    <td><button className='btn btn-outline btn-sm btn-success'>{book?.status ? 'paid': 'pay'}</button></td>
+                                    <td><button className='btn btn-outline btn-sm btn-success'>{book?.status ? 'paid' : 'pay'}</button></td>
                                 </tr>)
                             }
                         </tbody>

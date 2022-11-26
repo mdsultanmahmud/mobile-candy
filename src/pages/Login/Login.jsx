@@ -2,8 +2,12 @@ import React, { useContext } from 'react';
 import loginPic from '../../assets/login.jpg'
 import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast'
+import { useLocation, useNavigate } from 'react-router-dom';
 const Login = () => {
     const {LoginUser} = useContext(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location?.state?.from?.pathname || '/'
     const handleLogin = event =>{
         event.preventDefault()
         const form = event.target 
@@ -15,6 +19,7 @@ const Login = () => {
             if(loggedUser.uid){
                 toast.success('Login Successfully!')
                 form.reset()
+                navigate(from, {replace: true})
             }
         })
         .catch(error =>{
