@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import register from '../../assets/register.jpg'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
+import useJwtToken from '../Hooks/useJwtToken';
 const Register = () => {
     const { user, userRegister, userUpdated, googleLogin } = useContext(AuthContext)
     const navigate = useNavigate()
@@ -55,6 +56,7 @@ const Register = () => {
                         role: 'Buyer'
                     }
                     storedUserData(Saveduser)
+                    useJwtToken(data.user.email)
                 }
             })
             .catch(error => {
@@ -75,6 +77,7 @@ const Register = () => {
                 console.log(data)
                 if (data.acknowledged) {
                     toast.success('account created successfully!')
+                    useJwtToken(user.email)
                     navigate('/')
                 }
             })

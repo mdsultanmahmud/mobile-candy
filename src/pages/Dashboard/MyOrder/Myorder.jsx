@@ -1,17 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../context/AuthProvider';
 const Myorder = () => {
-    const { user } = useContext(AuthContext)
+    const { user,Logout } = useContext(AuthContext)
     const [bookings, setBookings] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${user?.email}`)
+        fetch(`http://localhost:5000/booking?email=${user?.email}`, {
+            headers: {
+                authorization_token: `Bearer ${localStorage.getItem('AccessToken')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setBookings(data))
+            .then(data => {
+                console.log(data)
+                setBookings(data)
+            })
     }, [user?.email])
     return (
         <div className='my-8'>
             {
-                bookings.length > 0  ?
+                bookings.length > 0 ?
                     <h1 className='text-center text-2xl text-red-400 font-semibold my-4'>Your All Orders</h1>
                     :
                     <h1 className='text-center text-2xl text-red-400 font-semibold my-4'>No products addeded.</h1>

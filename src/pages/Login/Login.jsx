@@ -3,6 +3,7 @@ import loginPic from '../../assets/login.jpg'
 import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast'
 import { useLocation, useNavigate } from 'react-router-dom';
+import useJwtToken from '../Hooks/useJwtToken';
 const Login = () => {
     const {LoginUser} = useContext(AuthContext)
     const location = useLocation()
@@ -18,6 +19,7 @@ const Login = () => {
             const loggedUser = data.user 
             if(loggedUser.uid){
                 toast.success('Login Successfully!')
+                useJwtToken(email)
                 form.reset()
                 navigate(from, {replace: true})
             }

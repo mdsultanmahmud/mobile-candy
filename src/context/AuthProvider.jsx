@@ -34,6 +34,7 @@ const AuthProvider = ({ children }) => {
     //logout the user
     const Logout = () =>{
         setLoading(true)
+        localStorage.removeItem('AccessToken')
         return signOut(auth)
     }
     // find logged user  

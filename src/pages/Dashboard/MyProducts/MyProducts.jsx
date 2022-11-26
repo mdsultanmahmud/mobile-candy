@@ -1,32 +1,37 @@
 import React, { useContext, useState } from 'react';
-import {useQuery} from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { AuthContext } from '../../../context/AuthProvider';
 const MyProducts = () => {
-    const {user} = useContext(AuthContext)
+    const { user, Logout } = useContext(AuthContext)
     const { data: myPorducts = [], isLoading } = useQuery({
         queryKey: ['email'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/productsByGmail?email=${user.email}`)
+            const res = await fetch(`http://localhost:5000/productsByGmail?email=${user.email}`, {
+                headers: {
+                    authorization_token: `Bearer ${localStorage.getItem('AccessToken')}`
+                }
+            })
             const data = await res.json()
+            console.log(data)
             return data
         }
     })
 
-    const handleAdvertisement = (prod) =>{
+    const handleAdvertisement = (prod) => {
         fetch(`http://localhost:5000/productsAdvertised`, {
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
             },
             body: JSON.stringify(prod)
         })
-        .then(res => res.json())
-        .then(data =>{
-            if(data.acknowledged){
-                toast.success('Products succeessfully advertised!')
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Products succeessfully advertised!')
+                }
+            })
     }
     return (
         <div>
@@ -56,7 +61,7 @@ const MyProducts = () => {
                                     <td className='text-sm font-bold'>{myPrd.productsName}</td>
                                     <td>${myPrd.resalePrice}</td>
                                     <td><button className='btn btn-secondary btn-outline btn-xs'>{myPrd.availibility ? 'Available' : 'Sold'} </button></td>
-                                    <td><button onClick={()=> handleAdvertisement(myPrd)} className='btn btn-secondary btn-outline btn-xs' disabled={!myPrd.availibility}>Add</button></td>
+                                    <td><button onClick={() => handleAdvertisement(myPrd)} className='btn btn-secondary btn-outline btn-xs' disabled={!myPrd.availibility}>Add</button></td>
                                     <td><button className='btn btn-secondary btn-outline btn-xs'>Delete</button></td>
                                 </tr>)
                             }
