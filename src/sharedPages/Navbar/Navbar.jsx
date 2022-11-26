@@ -2,17 +2,22 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import useRole from '../../pages/Hooks/useRole';
 const Navbar = () => {
-    const {user, Logout} = useContext(AuthContext)
-    const userLogoutHandling = () =>{
+    const { user, Logout } = useContext(AuthContext)
+    // const [dbUser] = useRole(user?.email)
+
+    const userLogoutHandling = () => {
         Logout()
-        .then(data =>{
-            toast.success('Logout Successfully')
-        })
-        .catch(error =>{
-            console.log(error)
-            toast.error(error.message)
-        })
+            .then(data => {
+                toast.success('Logout Successfully')
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error(error.message)
+            })
     }
     const menuList = <>
         <li><Link className='font-semibold text-green-600' to={'/'}>Home</Link></li>
@@ -46,11 +51,15 @@ const Navbar = () => {
                 </ul>
             </div>
             {
-                user?.email && 
+                user?.email &&
                 <div className="navbar-end">
-                <span className='text-xs mr-1 font-semibold'>{user?.displayName}</span>
-                <button onClick={userLogoutHandling} className="btn btn-outline btn-success">Logout</button>
-            </div>
+                    <div>
+                        <p className='text-xs mr-1 font-semibold'>{user?.displayName}</p>
+                        {/* <p className='text-xs mr-1 font-bold text-red-500'>Status: {dbUser?.role}</p> */}
+                    </div>
+                    <button onClick={userLogoutHandling} className="btn btn-outline btn-sm btn-success">Logout</button>
+                    <label htmlFor="dashboard-layout" className="btn drawer-button lg:hidden ml-2"><FontAwesomeIcon icon={faBars}></FontAwesomeIcon></label>
+                </div>
             }
         </div>
     );

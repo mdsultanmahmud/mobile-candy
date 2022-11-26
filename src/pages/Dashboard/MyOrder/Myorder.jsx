@@ -11,7 +11,6 @@ const Myorder = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setBookings(data)
             })
     }, [user?.email])

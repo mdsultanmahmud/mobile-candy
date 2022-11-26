@@ -4,9 +4,12 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import BookModal from '../Bookings/BookModal';
 import { AuthContext } from '../../context/AuthProvider';
 import { Link } from 'react-router-dom';
+import useRole from '../Hooks/useRole';
 const SingleProduct = ({ prodcut }) => {
     const [bookedPro, setBookedPro] = useState({})
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
+    const [dbUser] = useRole(user?.email)
+    console.log(dbUser)
     const { productsName, resalePrice, sellerEmail, sellerLocation, sellerName, usedTime,
         postTime, postDate, phone, originalPrice, image, condition } = prodcut
     return (
@@ -27,9 +30,10 @@ const SingleProduct = ({ prodcut }) => {
                     <div>
                         <h4 className='text-lg font-semibold text-orange-700'>Seller Information</h4>
                         <p><strong className='font-bold text-gray-500'>Seller: </strong>{sellerName}
-                            {/* {
-                             <span><FontAwesomeIcon className='text-green-600' icon={faCircleCheck}></FontAwesomeIcon></span>
-                            } */}
+                            {
+                                dbUser?.isVerified &&
+                                <span><FontAwesomeIcon className='text-green-600 ml-2' icon={faCircleCheck}></FontAwesomeIcon></span>
+                            }
                         </p>
                         <p><strong className='font-bold text-gray-500'>Email: </strong>{sellerEmail}</p>
                         <p><strong className='font-bold text-gray-500'>Phone: </strong>{phone}</p>
@@ -39,16 +43,16 @@ const SingleProduct = ({ prodcut }) => {
                 <p className='text-sm text-semibold text-gray-400'>{prodcut?.description}</p>
                 <div className="card-actions justify-end">
                     {
-                        user.email ? 
-                        <label onClick={() => setBookedPro(prodcut)} htmlFor="book-product" className="btn btn-success font-bold btn-outline" >Book Now</label >
-                        :
-                        <Link to={'/login'} className='text-red-500 text-sm font-semibold'>Please Login to Book</Link>
+                        user.email ?
+                            <label onClick={() => setBookedPro(prodcut)} htmlFor="book-product" className="btn btn-success font-bold btn-outline" >Book Now</label >
+                            :
+                            <Link to={'/login'} className='text-red-500 text-sm font-semibold'>Please Login to Book</Link>
                     }
                 </div>
             </div>
             <div>
                 {
-                    bookedPro.productsName && <BookModal key={prodcut._id} bookedProduct = {bookedPro}></BookModal>
+                    bookedPro.productsName && <BookModal key={prodcut._id} bookedProduct={bookedPro}></BookModal>
                 }
             </div>
         </div>
