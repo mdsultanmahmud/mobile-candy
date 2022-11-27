@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { AuthContext } from '../../../context/AuthProvider';
+import { ThreeDots } from  'react-loader-spinner'
 const MyProducts = () => {
     const { user, Logout } = useContext(AuthContext)
     const { data: myPorducts = [], isLoading } = useQuery({
@@ -18,7 +19,6 @@ const MyProducts = () => {
         }
     })
 
-    console.log(myPorducts)
     const handleAdvertisement = (prod) => {
         fetch(`https://mobile-candy-server.vercel.app/productsAdvertised`, {
             method: 'POST',
@@ -33,6 +33,20 @@ const MyProducts = () => {
                     toast.success('Products succeessfully advertised!')
                 }
             })
+    }
+    if(isLoading){
+        return <div className='h-[500px] w-[100%] grid place-items-center'>
+        <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+        />
+    </div>
     }
     return (
         <div>
