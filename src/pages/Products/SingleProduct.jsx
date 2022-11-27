@@ -5,12 +5,45 @@ import BookModal from '../Bookings/BookModal';
 import { AuthContext } from '../../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import useRole from '../Hooks/useRole';
+import toast from 'react-hot-toast';
+import { data } from 'autoprefixer';
 const SingleProduct = ({ prodcut }) => {
     const [bookedPro, setBookedPro] = useState({})
     const { user } = useContext(AuthContext)
     const { productsName, resalePrice, sellerEmail, sellerLocation, sellerName, usedTime,
         postTime, postDate, phone, originalPrice, image, condition, status } = prodcut
     const [dbUser] = useRole(sellerEmail)
+
+
+    const handleReportedItem = (item) =>{
+        const date = new Date()
+        const reportedItem = {
+            reporter: user?.displayName,
+            email: user?.email,
+            time: date.getTime(),
+            date: date.toLocaleDateString(),
+            productsName: item.productsName,
+            img: item.image,
+            productId: item._id,
+        }
+        fetch('http://localhost:5000/reported', {
+            method:'post',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(reportedItem)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.acknowledged){
+                toast.success('Reported this item successfull!')
+            }else{
+                toast.error(data.message)
+            }
+        })
+        
+    }
     return (
         <div className="card bg-base-100 shadow-xl">
             <figure><img className='h-[300px] w-full md:w-3/4 md:rounded' src={image} alt="Shoes" /></figure>
@@ -41,7 +74,8 @@ const SingleProduct = ({ prodcut }) => {
                     </div>
                 </div>
                 <p className='text-sm text-semibold text-gray-400'>{prodcut?.description}</p>
-                <div className="card-actions justify-end">
+                <div className="card-actions items-center justify-end">
+                    <button onClick={() => handleReportedItem(prodcut)} className='btn btn-sm btn-primary mr-2'>Report prodcut</button>
                     {
                         user.email ?
                             <button disabled = {status === 'sold'} className='btn btn-success font-bold btn-outline'><label onClick={() => setBookedPro(prodcut)} htmlFor="book-product">Book Now</label ></button>

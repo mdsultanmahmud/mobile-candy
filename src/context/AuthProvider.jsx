@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
         })
 
         return ()=> unsubscribe()
-    } ,[])
+    } ,[]) 
 
     const AuthInfo = { user,loading, userRegister, userUpdated,googleLogin,
         LoginUser,Logout }

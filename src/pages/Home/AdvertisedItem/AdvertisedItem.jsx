@@ -11,6 +11,8 @@ const AdvertisedItem = () => {
         }
     })
 
+    console.log(advertisedItems)
+
     return (
         <div className='my-10'>
             {

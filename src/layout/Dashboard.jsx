@@ -35,6 +35,7 @@ const Dashboard = () => {
                             <>
                                 <li><Link className='text-sm font-bold' to={'/dashboard/allsellers'}>All Sellers</Link></li>
                                 <li><Link className='text-sm font-bold' to={'/dashboard/allbuyers'}>All Buyers</Link></li>
+                                <li><Link className='text-sm font-bold' to={'/dashboard/reported'}>Reported Items</Link></li>
                             </>
                         }
                     </ul>

@@ -18,6 +18,7 @@ const MyProducts = () => {
         }
     })
 
+    console.log(myPorducts)
     const handleAdvertisement = (prod) => {
         fetch(`http://localhost:5000/productsAdvertised`, {
             method: 'POST',
@@ -60,8 +61,8 @@ const MyProducts = () => {
                                 myPorducts.map(myPrd => <tr key={myPrd._id}>
                                     <td className='text-sm font-bold'>{myPrd.productsName}</td>
                                     <td>${myPrd.resalePrice}</td>
-                                    <td><button className='btn btn-secondary btn-outline btn-xs'>{myPrd.availibility ? 'Available' : 'Sold'} </button></td>
-                                    <td><button onClick={() => handleAdvertisement(myPrd)} className='btn btn-secondary btn-outline btn-xs' disabled={!myPrd.availibility}>Add</button></td>
+                                    <td><p className={`font-bold text-sm ${myPrd?.status === 'sold' ? 'text-green-500':'text-red-600'}`}>{myPrd?.status === 'sold' ? 'Sold' : 'Avaible'} </p></td>
+                                    <td><button onClick={() => handleAdvertisement(myPrd)} className='btn btn-secondary btn-outline btn-xs' disabled={myPrd?.status === 'sold'}>Add</button></td>
                                     <td><button className='btn btn-secondary btn-outline btn-xs'>Delete</button></td>
                                 </tr>)
                             }
