@@ -8,7 +8,6 @@ import useRole from '../../pages/Hooks/useRole';
 const Navbar = () => {
     const { user, Logout } = useContext(AuthContext)
     // const [dbUser] = useRole(user?.email)
-
     const userLogoutHandling = () => {
         Logout()
             .then(data => {

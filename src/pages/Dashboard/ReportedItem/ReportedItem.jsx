@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const ReportedItem = () => {
-    const { data: reportedItems = [], isLoading } = useQuery({
+    const { data: reportedItems = [], isLoading, refetch} = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/reported')
@@ -11,13 +12,26 @@ const ReportedItem = () => {
         }
     })
 
+    const handleDeleteReportedItem = id =>{
+        fetch(`http://localhost:5000/reported/${id}`, {
+            method: 'delete'
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            if(data.acknowledged){
+                toast.success('Items deleted successfully!!')
+                refetch()
+            }
+        })
+    }
     return (
-        <div>
+        <div className='my-10'>
             {
                 reportedItems.length > 0 ?
-                    <h1 className='text-center text-green-400 font-bold text-2xl'>All Reported Phone</h1>
+                    <h1 className='text-center text-green-400 font-bold text-2xl my-8'>All Reported Phone</h1>
                     :
-                    <h1 className='text-center text-red-400 font-bold text-2xl'>No reported phone addeded</h1>
+                    <h1 className='text-center text-red-400 font-bold text-2xl my-8'>No reported phone addeded</h1>
             }
             {
                 reportedItems.length > 0 &&
@@ -33,7 +47,7 @@ const ReportedItem = () => {
                         </thead>
                         <tbody>
                             {
-                                reportedItems.map(item => <tr key={item._id}>
+                                reportedItems.map(item => <tr className='hover' key={item._id}>
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
@@ -53,7 +67,7 @@ const ReportedItem = () => {
                                     </td>
                                     <td>{item.email}</td>
                                     <th>
-                                        <button className="btn btn-success btn-sm">Delete</button>
+                                        <button onClick={() => handleDeleteReportedItem(item._id)} className="btn btn-success btn-sm">Delete</button>
                                     </th>
                                 </tr>)
                             }
