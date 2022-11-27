@@ -9,7 +9,7 @@ const SingleProduct = ({ prodcut }) => {
     const [bookedPro, setBookedPro] = useState({})
     const { user } = useContext(AuthContext)
     const { productsName, resalePrice, sellerEmail, sellerLocation, sellerName, usedTime,
-        postTime, postDate, phone, originalPrice, image, condition } = prodcut
+        postTime, postDate, phone, originalPrice, image, condition, status } = prodcut
     const [dbUser] = useRole(sellerEmail)
     return (
         <div className="card bg-base-100 shadow-xl">
@@ -25,6 +25,7 @@ const SingleProduct = ({ prodcut }) => {
                         <p><strong className='font-bold text-gray-500'>Condition: </strong>{condition}</p>
                         <p><strong className='font-bold text-gray-500'>Post Time: </strong>{postTime}</p>
                         <p><strong className='font-bold text-gray-500'>Post Date: </strong>{postDate}</p>
+                        <p><strong className='font-bold text-green-500'>Status: </strong>{status === 'sold' ? 'Sold' : 'Available'}</p>
                     </div>
                     <div>
                         <h4 className='text-lg font-semibold text-orange-700'>Seller Information</h4>
@@ -43,7 +44,7 @@ const SingleProduct = ({ prodcut }) => {
                 <div className="card-actions justify-end">
                     {
                         user.email ?
-                            <label onClick={() => setBookedPro(prodcut)} htmlFor="book-product" className="btn btn-success font-bold btn-outline" >Book Now</label >
+                            <button disabled = {status === 'sold'} className='btn btn-success font-bold btn-outline'><label onClick={() => setBookedPro(prodcut)} htmlFor="book-product">Book Now</label ></button>
                             :
                             <Link to={'/login'} className='text-red-500 text-sm font-semibold'>Please Login to Book</Link>
                     }

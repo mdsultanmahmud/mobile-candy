@@ -3,7 +3,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 const CheckOutForm = ({ bookedProduct }) => {
-    const { buyerName, email, price } = bookedProduct
+    const { buyerName, productId, email, price, _id,productsName,  } = bookedProduct
     const stripe = useStripe();
     const elements = useElements();
     const [clientSecret, setClientSecret] = useState("");
@@ -67,8 +67,29 @@ const CheckOutForm = ({ bookedProduct }) => {
 
         console.log('payment success status: ', paymentIntent)
         if (paymentIntent.status) {
+            const paymentProduct = {
+                transactionId: paymentIntent.id,
+                productId,
+                bookedProductId: _id,
+                productsName,
+                buyerName,
+                email,
+                status: true
+            }
             toast.success('Payment successfull!')
             setTransaction(paymentIntent.id)
+
+            fetch('http://localhost:5000/booked/payments', {
+                method: 'post',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(paymentProduct)
+            })
+            .then(res => res.json())
+            .then(paymentData =>{
+                console.log(paymentData)
+            })
         }
 
         setLoadingPayment(false)

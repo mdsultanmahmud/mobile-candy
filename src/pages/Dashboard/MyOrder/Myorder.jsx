@@ -55,7 +55,7 @@ const Myorder = () => {
                                         ${book.price}
                                     </td>
                                     <td>
-                                        <Link to={`/dashboard/payment/${book._id}`}><button className='btn btn-outline btn-sm btn-success'>{book?.status ? 'paid' : 'pay'}</button></Link>
+                                        <Link to={`/dashboard/payment/${book._id}`}><button className={`btn btn-outline btn-sm btn-success`} disabled={book?.status === 'sold'}>{book?.status ? 'paid' : 'pay'}</button></Link>
                                     </td>
                                 </tr>)
                             }
