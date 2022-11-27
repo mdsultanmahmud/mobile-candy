@@ -7,7 +7,7 @@ const Products = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() =>{
-        fetch(`http://localhost:5000/products?category=${category}`)
+        fetch(`https://mobile-candy-server.vercel.app/products?category=${category}`)
         .then(res => res.json())
         .then(data => setProducts(data))
     } ,[category])

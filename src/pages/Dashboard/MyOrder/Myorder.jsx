@@ -5,7 +5,7 @@ const Myorder = () => {
     const { user,Logout } = useContext(AuthContext)
     const [bookings, setBookings] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${user?.email}`, {
+        fetch(`https://mobile-candy-server.vercel.app/booking?email=${user?.email}`, {
             headers: {
                 authorization_token: `Bearer ${localStorage.getItem('AccessToken')}`
             }

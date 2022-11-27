@@ -26,7 +26,7 @@ const SingleProduct = ({ prodcut }) => {
             img: item.image,
             productId: item._id,
         }
-        fetch('http://localhost:5000/reported', {
+        fetch('https://mobile-candy-server.vercel.app/reported', {
             method:'post',
             headers:{
                 'content-type':'application/json'
