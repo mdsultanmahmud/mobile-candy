@@ -21,7 +21,7 @@ const Myorder = () => {
     }, [user?.email])
 
     if (loading) {
-        <div className='h-[500px] w-[100%] grid place-items-center'>
+        return <div className='h-[500px] w-[100%] grid place-items-center'>
             <ThreeDots
                 height="80"
                 width="80"
