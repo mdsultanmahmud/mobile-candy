@@ -15,14 +15,29 @@ const AllSeller = () => {
         fetch(`http://localhost:5000/users/verify/${id}`, {
             method: 'PUT'
         })
-        .then(res => res.json())
-        .then(data =>{
-            console.log(data)
-            if(data.modifiedCount){
-                toast.success('Seller Verified!')
-                refetch()
-            }
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount) {
+                    toast.success('Seller Verified!')
+                    refetch()
+                }
+            })
+    }
+
+    const handleDeleteUser = id => {
+        console.log(id)
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: 'delete'
         })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    toast.success('Items deleted successfully!!')
+                    refetch()
+                }
+            })
     }
 
     return (
@@ -53,7 +68,7 @@ const AllSeller = () => {
                                     <td>{seller.name}</td>
                                     <td>{seller.email}</td>
                                     <td><button onClick={() => handleVerified(seller._id)} className={`text-sm font-bold btn btn-sm ${seller?.isVerified ? 'btn-success' : 'btn-secondary'}`}>{seller?.isVerified ? 'verified' : 'verify'}</button></td>
-                                    <td><button className='btn btn-sm btn-outline btn-secondary'>Delete</button></td>
+                                    <td><button onClick={() => handleDeleteUser(seller._id)} className='btn btn-sm btn-outline btn-secondary'>Delete</button></td>
                                 </tr>)
                             }
 

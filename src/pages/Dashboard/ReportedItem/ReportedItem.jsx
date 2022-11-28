@@ -10,7 +10,7 @@ const ReportedItem = () => {
             const data = await res.json()
             return data
         }
-    })
+    }) 
 
     const handleDeleteReportedItem = id =>{
         fetch(`http://localhost:5000/reported/${id}`, {
