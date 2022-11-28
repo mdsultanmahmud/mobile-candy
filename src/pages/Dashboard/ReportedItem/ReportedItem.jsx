@@ -6,14 +6,14 @@ const ReportedItem = () => {
     const { data: reportedItems = [], isLoading, refetch} = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/reported')
+            const res = await fetch('https://mobile-candy-server.vercel.app/reported')
             const data = await res.json()
             return data
         }
     }) 
 
     const handleDeleteReportedItem = id =>{
-        fetch(`http://localhost:5000/reported/${id}`, {
+        fetch(`https://mobile-candy-server.vercel.app/reported/${id}`, {
             method: 'delete'
         })
         .then(res => res.json())

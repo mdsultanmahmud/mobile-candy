@@ -5,14 +5,14 @@ const AllBuyer = () => {
     const { data: buyers = [], isLoading, refetch} = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/buyers`)
+            const res = await fetch(`https://mobile-candy-server.vercel.app/buyers`)
             const data = await res.json()
             return data
         }
     })
     const handleDeleteUser = id =>{
         console.log(id)
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://mobile-candy-server.vercel.app/users/${id}`, {
             method: 'delete'
         })
         .then(res => res.json())

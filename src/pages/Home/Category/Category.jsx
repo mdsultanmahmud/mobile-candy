@@ -1,12 +1,13 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SingleCategory from './SingleCategory';
 
 const Category = () => {
     const [categories, setCategories] = useState([])
+
     useEffect(() =>{
-        fetch('http://localhost:5000/categories')
-        .then(res => res.json())
-        .then(data => setCategories(data))
+        axios.get('https://mobile-candy-server.vercel.app/categories')
+        .then(res => setCategories(res.data))
     } ,[])
     return (
         <div className='my-6'>

@@ -20,7 +20,7 @@ const BookModal = ({ bookedProduct, setBookedPro }) => {
             productId: _id,
             image
         }
-        fetch('http://localhost:5000/booking', {
+        fetch('https://mobile-candy-server.vercel.app/booking', {
             method:'post', 
             headers:{
                 'content-type':'application/json'

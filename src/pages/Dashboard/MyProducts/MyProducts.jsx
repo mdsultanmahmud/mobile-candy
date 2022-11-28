@@ -8,7 +8,7 @@ const MyProducts = () => {
     const { data: myPorducts = [], isLoading } = useQuery({
         queryKey: ['email'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/productsByGmail?email=${user.email}`, {
+            const res = await fetch(`https://mobile-candy-server.vercel.app/productsByGmail?email=${user.email}`, {
                 headers: {
                     authorization_token: `Bearer ${localStorage.getItem('AccessToken')}`
                 }
@@ -21,7 +21,7 @@ const MyProducts = () => {
 
     const handleAdvertisement = (prod) => {
         prod.productId = prod._id 
-        fetch(`http://localhost:5000/productsAdvertised`, {
+        fetch(`https://mobile-candy-server.vercel.app/productsAdvertised`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

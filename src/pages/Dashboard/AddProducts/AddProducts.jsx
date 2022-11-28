@@ -18,7 +18,7 @@ const AddProducts = () => {
         data.postTime = postTime
         data.time = time
         data.availibility = true
-        fetch('http://localhost:5000/products', {
+        fetch('https://mobile-candy-server.vercel.app/products', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
