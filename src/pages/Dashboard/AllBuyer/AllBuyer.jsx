@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
+import { ThreeDots } from 'react-loader-spinner'
 const AllBuyer = () => {
     const { data: buyers = [], isLoading, refetch} = useQuery({
         queryKey: ['sellers'],
@@ -22,6 +23,21 @@ const AllBuyer = () => {
                 refetch()
             }
         })
+    }
+
+    if(isLoading){
+        return <div className='h-[500px] w-[100%] grid place-items-center'>
+            <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#4fa94d"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+            />
+        </div>
     }
     return (
         <div className='my-5'>

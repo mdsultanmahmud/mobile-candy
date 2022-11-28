@@ -1,29 +1,44 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
-
+import { ThreeDots } from 'react-loader-spinner'
 const ReportedItem = () => {
-    const { data: reportedItems = [], isLoading, refetch} = useQuery({
+    const { data: reportedItems = [], isLoading, refetch } = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
             const res = await fetch('https://mobile-candy-server.vercel.app/reported')
             const data = await res.json()
             return data
         }
-    }) 
+    })
 
-    const handleDeleteReportedItem = id =>{
+    const handleDeleteReportedItem = id => {
         fetch(`https://mobile-candy-server.vercel.app/reported/${id}`, {
             method: 'delete'
         })
-        .then(res => res.json())
-        .then(data =>{
-            console.log(data)
-            if(data.acknowledged){
-                toast.success('Items deleted successfully!!')
-                refetch()
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    toast.success('Items deleted successfully!!')
+                    refetch()
+                }
+            })
+    }
+
+    if (isLoading) {
+        return <div className='h-[500px] w-[100%] grid place-items-center'>
+            <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#4fa94d"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+            />
+        </div>
     }
     return (
         <div className='my-10'>
@@ -63,7 +78,7 @@ const ReportedItem = () => {
                                     </td>
                                     <td>
                                         {item.reporter}
-    
+
                                     </td>
                                     <td>{item.email}</td>
                                     <th>
