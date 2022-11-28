@@ -11,7 +11,6 @@ const AllBuyer = () => {
         }
     })
     const handleDeleteUser = id =>{
-        console.log(id)
         fetch(`https://mobile-candy-server.vercel.app/users/${id}`, {
             method: 'delete'
         })

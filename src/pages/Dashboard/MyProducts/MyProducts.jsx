@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { AuthContext } from '../../../context/AuthProvider';
-import { ThreeDots } from  'react-loader-spinner'
+import { ThreeDots } from 'react-loader-spinner'
 const MyProducts = () => {
     const { user, Logout } = useContext(AuthContext)
-    const { data: myPorducts = [], isLoading } = useQuery({
+    const { data: myPorducts = [], isLoading, refetch } = useQuery({
         queryKey: ['email'],
         queryFn: async () => {
             const res = await fetch(`https://mobile-candy-server.vercel.app/productsByGmail?email=${user.email}`, {
@@ -14,13 +14,12 @@ const MyProducts = () => {
                 }
             })
             const data = await res.json()
-            console.log(data)
             return data
         }
     })
 
     const handleAdvertisement = (prod) => {
-        prod.productId = prod._id 
+        prod.productId = prod._id
         fetch(`https://mobile-candy-server.vercel.app/productsAdvertised`, {
             method: 'POST',
             headers: {
@@ -32,22 +31,39 @@ const MyProducts = () => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Products succeessfully advertised!')
+                } else {
+                    toast.error('products already advertised!')
                 }
             })
     }
-    if(isLoading){
+
+    // handle delete item 
+    const handleDeleteProduct = id => {
+        fetch(`https://mobile-candy-server.vercel.app/products/${id}`, {
+            method: 'delete'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    toast.success('Items deleted successfully!!')
+                    refetch()
+                }
+            })
+    }
+    if (isLoading) {
         return <div className='h-[500px] w-[100%] grid place-items-center'>
-        <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="#4fa94d"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
-            visible={true}
-        />
-    </div>
+            <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#4fa94d"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+            />
+        </div>
     }
     return (
         <div>
@@ -76,9 +92,9 @@ const MyProducts = () => {
                                 myPorducts.map(myPrd => <tr key={myPrd._id}>
                                     <td className='text-sm font-bold'>{myPrd.productsName}</td>
                                     <td>${myPrd.resalePrice}</td>
-                                    <td><p className={`font-bold text-sm ${myPrd?.status === 'sold' ? 'text-green-500':'text-red-600'}`}>{myPrd?.status === 'sold' ? 'Sold' : 'Avaible'} </p></td>
+                                    <td><p className={`font-bold text-sm ${myPrd?.status === 'sold' ? 'text-green-500' : 'text-red-600'}`}>{myPrd?.status === 'sold' ? 'Sold' : 'Avaible'} </p></td>
                                     <td><button onClick={() => handleAdvertisement(myPrd)} className='btn btn-secondary btn-outline btn-xs' disabled={myPrd?.status === 'sold'}>Add</button></td>
-                                    <td><button className='btn btn-secondary btn-outline btn-xs'>Delete</button></td>
+                                    <td><button onClick={() => handleDeleteProduct(myPrd._id)} className='btn btn-secondary btn-outline btn-xs'>Delete</button></td>
                                 </tr>)
                             }
                         </tbody>

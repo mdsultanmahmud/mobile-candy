@@ -75,7 +75,7 @@ const SingleProduct = ({ prodcut }) => {
                 </div>
                 <p className='text-sm text-semibold text-gray-400'>{prodcut?.description}</p>
                 <div className="card-actions items-center justify-end">
-                    <button onClick={() => handleReportedItem(prodcut)} className='btn btn-sm btn-primary mr-2'>Report prodcut</button>
+                    <button onClick={() => handleReportedItem(prodcut)} className='btn btn-sm btn-primary mr-2'>Report product</button>
                     {
                         user.email ?
                             <button disabled = {status === 'sold'} className='btn btn-success font-bold btn-outline'><label onClick={() => setBookedPro(prodcut)} htmlFor="book-product">Book Now</label ></button>
