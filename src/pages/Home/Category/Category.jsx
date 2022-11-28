@@ -4,7 +4,7 @@ import SingleCategory from './SingleCategory';
 const Category = () => {
     const [categories, setCategories] = useState([])
     useEffect(() =>{
-        fetch('https://mobile-candy-server.vercel.app/categories')
+        fetch('http://localhost:5000/categories')
         .then(res => res.json())
         .then(data => setCategories(data))
     } ,[])

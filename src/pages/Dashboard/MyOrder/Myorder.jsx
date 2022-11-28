@@ -8,7 +8,7 @@ const Myorder = () => {
     const [loading, setLoding] = useState(true)
     useEffect(() => {
         setLoding(true)
-        fetch(`https://mobile-candy-server.vercel.app/booking?email=${user?.email}`, {
+        fetch(`http://localhost:5000/booking?email=${user?.email}`, {
             headers: {
                 authorization_token: `Bearer ${localStorage.getItem('AccessToken')}`
             }

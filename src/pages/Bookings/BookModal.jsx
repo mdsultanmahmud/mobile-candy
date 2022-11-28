@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast'
-const BookModal = ({ bookedProduct }) => {
+const BookModal = ({ bookedProduct, setBookedPro }) => {
     const { user } = useContext(AuthContext)
     const { productsName, resalePrice, _id, image } = bookedProduct
     const hangleBooking = event => {
@@ -20,7 +20,7 @@ const BookModal = ({ bookedProduct }) => {
             productId: _id,
             image
         }
-        fetch('https://mobile-candy-server.vercel.app/booking', {
+        fetch('http://localhost:5000/booking', {
             method:'post', 
             headers:{
                 'content-type':'application/json'
@@ -31,6 +31,7 @@ const BookModal = ({ bookedProduct }) => {
         .then(data =>{
             console.log(data)
             if(data.acknowledged){
+                setBookedPro('')
                 toast.success('Product book successfully! Please pay for delivered.')
             }
         })
@@ -40,7 +41,7 @@ const BookModal = ({ bookedProduct }) => {
             < input type="checkbox" id="book-product" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box relative">
-                    <label htmlFor="book-product" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={() => setBookedPro('')} htmlFor="book-product" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <form className='w-[300px] mx-auto' onSubmit={hangleBooking}>
                         <h1 className='text-center mb-4 font-semibold text-xl'>Book {productsName}</h1>
                         <div>

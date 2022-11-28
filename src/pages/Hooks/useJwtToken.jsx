@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 const useJwtToken = email => {
-    fetch(`https://mobile-candy-server.vercel.app/jwt?email=${email}`)
+    fetch(`http://localhost:5000/jwt?email=${email}`)
         .then(res => res.json())
         .then(data => {
             if (data.accessToken) {

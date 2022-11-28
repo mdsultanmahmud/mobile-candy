@@ -4,7 +4,7 @@ const AllBuyer = () => {
     const { data: buyers = [], isLoading } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch(`https://mobile-candy-server.vercel.app/buyers`)
+            const res = await fetch(`http://localhost:5000/buyers`)
             const data = await res.json()
             return data
         }

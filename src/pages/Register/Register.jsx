@@ -65,7 +65,7 @@ const Register = () => {
     }
     // stored data into server 
     const storedUserData = user => {
-        fetch('https://mobile-candy-server.vercel.app/users', {
+        fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

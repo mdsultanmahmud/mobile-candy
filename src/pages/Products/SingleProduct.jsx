@@ -26,7 +26,7 @@ const SingleProduct = ({ prodcut }) => {
             img: item.image,
             productId: item._id,
         }
-        fetch('https://mobile-candy-server.vercel.app/reported', {
+        fetch('http://localhost:5000/reported', {
             method:'post',
             headers:{
                 'content-type':'application/json'
@@ -86,7 +86,7 @@ const SingleProduct = ({ prodcut }) => {
             </div>
             <div>
                 {
-                    bookedPro.productsName && <BookModal key={prodcut._id} bookedProduct={bookedPro}></BookModal>
+                    bookedPro.productsName && <BookModal key={prodcut._id} bookedProduct={bookedPro} setBookedPro = {setBookedPro}></BookModal>
                 }
             </div>
         </div>

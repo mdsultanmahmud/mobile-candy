@@ -7,11 +7,11 @@ const Products = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() =>{
-        fetch(`https://mobile-candy-server.vercel.app/products?category=${category}`)
+        fetch(`http://localhost:5000/products?category=${category}`)
         .then(res => res.json())
         .then(data => setProducts(data))
     } ,[category])
-    
+    console.log(products)
     return (
         <div>
             <h3 className='text-center font-bold my-5 text-2xl text-green-500'>All Products of {name}</h3>

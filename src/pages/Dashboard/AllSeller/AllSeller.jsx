@@ -5,14 +5,14 @@ const AllSeller = () => {
     const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch(`https://mobile-candy-server.vercel.app/sellers`)
+            const res = await fetch(`http://localhost:5000/sellers`)
             const data = await res.json()
             return data
         }
     })
 
     const handleVerified = (id) => {
-        fetch(`https://mobile-candy-server.vercel.app/users/verify/${id}`, {
+        fetch(`http://localhost:5000/users/verify/${id}`, {
             method: 'PUT'
         })
         .then(res => res.json())

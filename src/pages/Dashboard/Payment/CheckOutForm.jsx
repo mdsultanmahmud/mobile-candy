@@ -10,7 +10,7 @@ const CheckOutForm = ({ bookedProduct }) => {
     const [transaction, setTransaction] = useState('')
     const [loadingPayment, setLoadingPayment] = useState(false)
     useEffect(() => {
-        fetch("https://mobile-candy-server.vercel.app/create-payment-intent", {
+        fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -79,7 +79,7 @@ const CheckOutForm = ({ bookedProduct }) => {
             toast.success('Payment successfull!')
             setTransaction(paymentIntent.id)
 
-            fetch('https://mobile-candy-server.vercel.app/booked/payments', {
+            fetch('http://localhost:5000/booked/payments', {
                 method: 'post',
                 headers:{
                     'content-type': 'application/json'
