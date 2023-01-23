@@ -4,8 +4,8 @@ const GetUpdate = () => {
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
-                <img src={phoneLogo} className="max-w-1/3 rounded-lg" />
-                <div>
+                <img src={phoneLogo} className="max-w-1/3 rounded-lg" data-aos='fade-right' />
+                <div data-aos='fade-left'>
                     <h1 className="text-xl font-bold">Subscribe to our newletter!</h1>
                     <input type="email" placeholder="Enter your email" className=" my-5 input input-bordered input-info w-full max-w-xs" />
                     <button className="btn btn-success">Subscribe</button>

@@ -3,7 +3,7 @@ import React from 'react';
 const SingleAdvProd = ({advprod}) => {
     const {productsName, image,availibility, resalePrice, sellerName} = advprod
     return (
-        <div className="card bg-base-100 shadow-xl">
+        <div className="card bg-base-100 shadow-xl" data-aos='zoom-in'>
             <p className='text-gray-400 font-bold text-sm my-2'>Add</p>
             <figure><img className='h-[250px] w-full rounded' src={image} alt="Shoes" /></figure>
             <div className="card-body">
