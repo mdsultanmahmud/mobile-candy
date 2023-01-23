@@ -7,7 +7,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import useRole from '../../pages/Hooks/useRole';
 const Navbar = () => {
     const { user, Logout } = useContext(AuthContext)
-    // const [dbUser] = useRole(user?.email)
+    const role =  useRole(user?.email)
     const userLogoutHandling = () => {
         Logout()
             .then(data => {
@@ -54,10 +54,11 @@ const Navbar = () => {
                 <div className="navbar-end">
                     <div>
                         <p className='text-xs mr-1 font-semibold'>{user?.displayName}</p>
-                        {/* <p className='text-xs mr-1 font-bold text-red-500'>Status: {dbUser?.role}</p> */}
+                        <p className='text-xs mr-1 font-semibold text-red-500'>{role[0].role}</p>
+                       
                     </div>
                     <button onClick={userLogoutHandling} className="btn btn-outline btn-sm btn-success">Logout</button>
-                    {/* <label htmlFor="dashboard-layout" className="btn drawer-button lg:hidden ml-2"><FontAwesomeIcon icon={faBars}></FontAwesomeIcon></label> */}
+                    <label htmlFor="dashboard-layout" className="btn drawer-button lg:hidden ml-2"><FontAwesomeIcon icon={faBars}></FontAwesomeIcon></label>
                 </div>
             }
         </div>
