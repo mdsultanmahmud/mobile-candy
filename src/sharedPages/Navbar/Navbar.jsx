@@ -57,7 +57,7 @@ const Navbar = () => {
                         {/* <p className='text-xs mr-1 font-bold text-red-500'>Status: {dbUser?.role}</p> */}
                     </div>
                     <button onClick={userLogoutHandling} className="btn btn-outline btn-sm btn-success">Logout</button>
-                    <label htmlFor="dashboard-layout" className="btn drawer-button lg:hidden ml-2"><FontAwesomeIcon icon={faBars}></FontAwesomeIcon></label>
+                    {/* <label htmlFor="dashboard-layout" className="btn drawer-button lg:hidden ml-2"><FontAwesomeIcon icon={faBars}></FontAwesomeIcon></label> */}
                 </div>
             }
         </div>

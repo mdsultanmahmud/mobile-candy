@@ -6,9 +6,9 @@ import blogFour from '../../assets/blog-4.png'
 const Blog = () => {
     return (
         <div className='my-10 p-5'>
-            <h1 className='text-center text-2xl font-bold text-green-500 my-4'>Our Blogs</h1>
+            <h1 className='text-center text-2xl font-bold text-green-500 my-4' data-aos='fade-down'>Our Blogs</h1>
             <div className='grid gap-6 grid-cols-1 md:grid-cols-2'>
-                <div className="card card-compact bg-base-100 shadow-xl">
+                <div className="card card-compact bg-base-100 shadow-xl" data-aos='fade-right'>
                     <figure><img src={blogOne} alt="Shoes" /></figure>
                     <div className="card-body">
                         <h3 className='text-xl font-bold text-green-600'>What are the different ways to manage a state in a React application?</h3>
@@ -21,7 +21,7 @@ const Blog = () => {
                         </p>
                     </div>
                 </div>
-                <div className="card card-compact bg-base-100 shadow-xl">
+                <div className="card card-compact bg-base-100 shadow-xl" data-aos='fade-left'>
                     <figure><img src={blogTwo} alt="Shoes" /></figure>
                     <div className="card-body">
                         <h3 className='text-xl font-bold text-green-600'>How does prototypical inheritance work?</h3>
@@ -31,7 +31,7 @@ const Blog = () => {
                         </p>
                     </div>
                 </div>
-                <div className="card card-compact bg-base-100 shadow-xl">
+                <div className="card card-compact bg-base-100 shadow-xl" data-aos='fade-right'>
                     <figure><img src={blogThree} alt="Shoes" /></figure>
                     <div className="card-body">
                         <h3 className='text-xl font-bold text-green-600'>What is a unit test?Why should we write unit tests?</h3>
@@ -41,8 +41,8 @@ const Blog = () => {
                         </p>
                     </div>
                 </div>
-                <div className="card card-compact bg-base-100 shadow-xl">
-                    <figure><img src={blogFour} alt="Shoes" /></figure>
+                <div className="card card-compact bg-base-100 shadow-xl" data-aos='fade-left'>
+                    <figure><img src={blogFour} alt="Shoes"/></figure>
                     <div className="card-body">
                         <h3 className='text-xl font-bold text-green-600'> React vs. Angular vs. Vue?</h3>
                         <p>
