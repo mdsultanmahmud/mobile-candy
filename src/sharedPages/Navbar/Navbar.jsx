@@ -7,7 +7,10 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import useRole from '../../pages/Hooks/useRole';
 const Navbar = () => {
     const { user, Logout } = useContext(AuthContext)
-    const role =  useRole(user?.email)
+    let role
+    if(user.email){
+        role = useRole(user.email)
+    }
     const userLogoutHandling = () => {
         Logout()
             .then(data => {
